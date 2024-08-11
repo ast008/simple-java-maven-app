@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     // Use the Maven version you configured in Jenkins
-                    def mvnHome = tool(name: 'Maven 3.9.8', type: 'maven')
+                    def mvnHome = tool(name: '3.9.8', type: 'maven')
                     env.PATH = "${mvnHome}/bin:${env.PATH}"
                 }
                 dir("simple-java-maven-app") {
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Ensure Maven 3.9.8 is still in use
-                    def mvnHome = tool(name: 'Maven 3.9.8', type: 'maven')
+                    def mvnHome = tool(name: '3.9.8', type: 'maven')
                     env.PATH = "${mvnHome}/bin:${env.PATH}"
                 }
                 sh 'mvn test'
