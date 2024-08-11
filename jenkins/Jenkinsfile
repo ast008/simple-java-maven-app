@@ -1,31 +1,21 @@
 pipeline {
     agent any
-    environment {
-        MVN_HOME = tool(name: '3.9.8', type: 'maven')
+    tools {
+        maven '3.9.8' // This references the Maven installation you configured
     }
     stages {
         stage('Build') {
             steps {
-                script {
-                    env.PATH = "${MVN_HOME}/bin:${env.PATH}"
-                }
-                dir("simple-java-maven-app") {
-                    sh 'mvn -B -DskipTests clean package'
-                }
+                sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
             steps {
-                script {
-                    env.PATH = "${MVN_HOME}/bin:${env.PATH}"
-                }
-                dir("simple-java-maven-app") {
-                    sh 'mvn test'
-                }
+                sh 'mvn test'
             }
             post {
                 always {
-                    junit 'simple-java-maven-app/target/surefire-reports/*.xml'
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
         }
